@@ -20,7 +20,7 @@ int main( void )
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 
-	window = glfwCreateWindow( 400, 300, "02 Draw Triangle", NULL, NULL);
+	window = glfwCreateWindow( 400, 300, "03 Setting Camera", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	glewExperimental = GL_TRUE;

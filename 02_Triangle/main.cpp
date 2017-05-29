@@ -33,7 +33,7 @@ int main( void )
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);	// 註冊
-	glBindVertexArray(VertexArrayID);		// 綁定
+	glBindVertexArray(VertexArrayID);	// 綁定
 
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "SimpleVertexShader.vert", "SimpleFragmentShader.frag" );
@@ -49,10 +49,10 @@ int main( void )
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(
-		GL_ARRAY_BUFFER, 				// 使用的型態
-		sizeof(g_vertex_buffer_data),  	// Data 的長度
-		g_vertex_buffer_data, 			// Data 的位置
-		GL_STATIC_DRAW					// Data 該怎麼用
+		GL_ARRAY_BUFFER,	// 使用的型態
+		sizeof(g_vertex_buffer_data),	// Data 的長度
+		g_vertex_buffer_data,	// Data 的位置
+		GL_STATIC_DRAW	// Data 該怎麼用
 	);
 
 
