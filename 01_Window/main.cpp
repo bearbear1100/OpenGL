@@ -20,10 +20,10 @@ int main( void )
 	
 	
 	// 設定參數
-	glfwWindowHint(GLFW_SAMPLES, 4);	// 抗鋸齒： 4x MSAA, means that each pixel of the window's buffer consists of 4 subsamples
+	glfwWindowHint(GLFW_SAMPLES, 4);	// 4倍抗鋸齒：邊緣柔化、消除混疊
 	// OpenGL3.3 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);	// 主版本
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);	// 次版本
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);	// 主版本號
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);	// 次版本號
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // MacOs需要加上這句，配置才會啟用;
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 告訴 OpenGL 使用 Core-profile 模式
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // 不能調視窗大小
@@ -33,6 +33,9 @@ int main( void )
 	// Open a window and create its OpenGL context
 	window = glfwCreateWindow( 1024, 768, "01 Just Open Window", NULL, NULL);
 	glfwMakeContextCurrent(window);
+
+	// 讓GLEW用OpenGL的函數時，可以多用現代化的技術，如果設為False 會在Core-profile 模式出現奇怪的問題
+	glewExperimental = GL_TRUE;
 	glewInit();
 
 
