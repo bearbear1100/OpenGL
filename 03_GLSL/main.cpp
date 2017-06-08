@@ -33,12 +33,10 @@ int main( void )
 	GLuint programID = LoadShaders( "VertexShader.vert", "FragmentShader.frag" );
 
 
+
+
+
 	// 這個是位置、顏色寫在一起
-
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);	// 註冊
-	glBindVertexArray(VertexArrayID);		// 綁定
-
 
 	GLfloat vertices[] = {
      // 位置              // 颜色
@@ -47,9 +45,13 @@ int main( void )
      0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 上面
 	};
 
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);	// 註冊
+	glBindVertexArray(VAO);		// 綁定
+
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 
@@ -87,8 +89,8 @@ int main( void )
 		   glfwWindowShouldClose(window) == 0 );
 
 	// close
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteVertexArrays(1, &VertexArrayID);
+	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAO);
 	glDeleteProgram(programID);
 
 	glfwTerminate();

@@ -37,9 +37,9 @@ int main( void )
 
 	// 這個是位置、顏色分開寫
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);	// 註冊
-	glBindVertexArray(VertexArrayID);		// 綁定
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);	// 註冊
+	glBindVertexArray(VAO);		// 綁定
 
 	GLfloat vertices[] = { 
 		0.5f, -0.5f, 0.0f,
@@ -105,7 +105,7 @@ int main( void )
 	// close
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &colorBuffer);
-	glDeleteVertexArrays(1, &VertexArrayID);
+	glDeleteVertexArrays(1, &VAO);
 	glDeleteProgram(programID);
 
 	glfwTerminate();

@@ -20,7 +20,7 @@ int main( void )
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 
-	window = glfwCreateWindow( 300, 300, "04 Texture", NULL, NULL);
+	window = glfwCreateWindow( 600, 600, "04 Texture", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	glewExperimental = GL_TRUE;
@@ -46,7 +46,7 @@ int main( void )
 	// 建立VAO
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
+	// glBindVertexArray(VAO);
 
 	// 建立VBO
 	GLuint VBO;
@@ -62,18 +62,17 @@ int main( void )
 
 	
  	// 載入、建立 Texture
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    unsigned int texture1;
+    glGenTextures(1, &texture1);	
+	glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
 	int width, height, nrChannels;
-	unsigned char *data = stbi_load("box_texture.jpg", &width, &height, &nrChannels, 0); 
+	unsigned char *data = stbi_load("texture.jpg", &width, &height, &nrChannels, 0); 
 	if(data){
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -83,6 +82,30 @@ int main( void )
 		exit(1);
     }
 
+	// glUniform1i(glGetUniformLocation(programID, "Texture1"), 0);
+	
+    unsigned int texture2;
+    glGenTextures(1, &texture2);	
+	glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+	int width2, height2, nrChannels2;
+	unsigned char *data2 = stbi_load("kutori.png", &width2, &height2, &nrChannels2, 0); 
+	if(data2){
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width2, height2, 0, GL_RGBA, GL_UNSIGNED_BYTE, data2);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else{
+		printf("Are you Kidding?! No picture input!!!\n");
+		exit(1);
+    }
+
+
+	glUniform1i(glGetUniformLocation(programID, "Texture2"), 1);
 
 
 	// 設定 VAO
@@ -90,7 +113,15 @@ int main( void )
 
     	glBindBuffer(GL_ARRAY_BUFFER, VBO);
     	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		
+		// glActiveTexture(GL_TEXTURE0);
+		// glBindTexture(GL_TEXTURE_2D, texture1);
+		// glUniform1i(glGetUniformLocation(programID, "Texture1"), 0);
+		
+		// glActiveTexture(GL_TEXTURE1);
+		// glBindTexture(GL_TEXTURE_2D, texture2);
+		// glUniform1i(glGetUniformLocation(programID, "Texture2"), 1);
+
 		// position attribute
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -116,6 +147,13 @@ int main( void )
 		glEnableVertexAttribArray(2);
 
 		glBindVertexArray(VAO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glUniform1i(glGetUniformLocation(programID, "Texture1"), 0);
+		
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+		glUniform1i(glGetUniformLocation(programID, "Texture2"), 1);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
