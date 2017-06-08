@@ -19,7 +19,7 @@ int main( void )
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 
-	window = glfwCreateWindow( 400, 300, "02 Draw Triangle", NULL, NULL);
+	window = glfwCreateWindow( 300, 300, "02 Draw Triangle", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	glewExperimental = GL_TRUE;
@@ -39,10 +39,10 @@ int main( void )
 	GLuint programID = LoadShaders( "SimpleVertexShader.vert", "SimpleFragmentShader.frag" );
 
 
-	static const GLfloat g_vertex_buffer_data[] = { 
-		-1.0f, -1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
-		 0.0f,  1.0f, 0.0f,
+	GLfloat vertex[] = { 
+		-0.8f, -0.8f, 0.0f,
+		 0.8f, -0.8f, 0.0f,
+		 0.0f,  0.8f, 0.0f,
 	};
 
 	GLuint vertexbuffer;
@@ -50,8 +50,8 @@ int main( void )
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(
 		GL_ARRAY_BUFFER,	// 使用的型態
-		sizeof(g_vertex_buffer_data),	// Data 的長度
-		g_vertex_buffer_data,	// Data 的位置
+		sizeof(vertex),	// Data 的長度
+		vertex,			// Data 的位置
 		GL_STATIC_DRAW	// Data 該怎麼用
 	);
 
@@ -60,12 +60,9 @@ int main( void )
 	do{
 		glClear( GL_COLOR_BUFFER_BIT );
 
-
-
-		// Use our shader
+		// Use Shader
 		glUseProgram(programID);
 
-		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0); //Specifies the index of the generic vertex attribute to be enabled or disabled.
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);	
 		// 因為這個範例只有一個屬性（位置）而且上面 Bind 過，這裡其實不用再Bind一次。
@@ -82,7 +79,6 @@ int main( void )
 		// Draw the triangle !
 		glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
 		glDisableVertexAttribArray(0);
-
 
 
 
