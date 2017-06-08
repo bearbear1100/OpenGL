@@ -33,7 +33,7 @@ int main( void )
 	GLuint programID = LoadShaders( "VertexShader.vert", "FragmentShader.frag" );
 
 
-
+	// 這個是位置、顏色寫在一起
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);	// 註冊

@@ -50,7 +50,6 @@ int main( void )
 	// 建立 VAO 
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);	// 註冊
-	glBindVertexArray(VAO);		// 綁定
 
     // 把 VBO 送到緩衝器，給 OpenGL 用
 	GLuint VBO;
@@ -63,8 +62,16 @@ int main( void )
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
+		
 
-	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0 );
+	// 製作 VAO
+	glBindVertexArray(VAO);		// 綁定 VAO
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);	// 塞 VBO 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); // 塞 EBO
+	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0 ); // 設定好指標
+	glBindVertexArray(0);	// 做好這個 VAO 之後解綁
+
+
 
 	// Change to Wireframe Mode
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -75,10 +82,17 @@ int main( void )
 		// Use Shader
 		glUseProgram(programID);
 
-		glBindVertexArray(VAO);		// 綁定 VAO
+
+
+
+		glBindVertexArray(VAO);		// 要用的時候，綁定 VAO
 		glEnableVertexAttribArray(0); // 啟用 Vertex Attribute
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw the triangle !
-		glBindVertexArray(0);	// 解綁
+		glDisableVertexAttribArray(0); // 關閉 Vertex Attribute
+		glBindVertexArray(0);	// 解綁 VAO
+
+
+
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

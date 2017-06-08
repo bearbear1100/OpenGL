@@ -31,27 +31,27 @@ int main( void )
 
 
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);	// 註冊
-	glBindVertexArray(VertexArrayID);	// 綁定
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);	// 註冊
+	glBindVertexArray(VAO);	// 綁定
 
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "SimpleVertexShader.vert", "SimpleFragmentShader.frag" );
 
 
-	GLfloat vertex[] = { 
+	GLfloat vertices[] = { 
 		-0.8f, -0.8f, 0.0f,
 		 0.8f, -0.8f, 0.0f,
-		 0.0f,  0.8f, 0.0f,
+		 0.0f,  0.6f, 0.0f,
 	};
 
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(
 		GL_ARRAY_BUFFER,	// 使用的型態
-		sizeof(vertex),	// Data 的長度
-		vertex,			// Data 的位置
+		sizeof(vertices),	// Data 的長度
+		vertices,			// Data 的位置
 		GL_STATIC_DRAW	// Data 該怎麼用
 	);
 
@@ -64,7 +64,7 @@ int main( void )
 		glUseProgram(programID);
 
 		glEnableVertexAttribArray(0); //Specifies the index of the generic vertex attribute to be enabled or disabled.
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);	
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);	
 		// 因為這個範例只有一個屬性（位置）而且上面 Bind 過，這裡其實不用再Bind一次。
 		// 但是以後如果有多張圖片或多個屬性的時候就需要，所以通常會在 Pointer 之前會根據不同的屬性再 bind 一次
 		glVertexAttribPointer(
@@ -90,8 +90,8 @@ int main( void )
 		   glfwWindowShouldClose(window) == 0 );
 
 
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteVertexArrays(1, &VertexArrayID);
+	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAO);
 	glDeleteProgram(programID);
 
 	glfwTerminate();

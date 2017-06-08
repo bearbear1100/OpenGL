@@ -35,7 +35,7 @@ int main( void )
 
 
 
-
+	// 這個是位置、顏色分開寫
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);	// 註冊
