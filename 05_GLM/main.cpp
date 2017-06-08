@@ -26,7 +26,7 @@ int main( void )
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 
-	window = glfwCreateWindow( 600, 600, "05 GLM", NULL, NULL);
+	window = glfwCreateWindow( 300, 300, "05 GLM", NULL, NULL);
 	glfwMakeContextCurrent(window);
 
 	glewExperimental = GL_TRUE;
