@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -lGLEW  -std=c++11 -I/usr/local/include -framework OpenGL -I.. -lGLEW -lGLFW 
+CFLAGS = -lGLEW  -std=c++11 -I/usr/local/include -framework OpenGL -I../lib  -I../ -lGLEW -lGLFW 
 
 maomain:main.cpp
-	$(CC) main.cpp ../include/shader.cpp  $(CFLAGS)
+	$(CC) main.cpp ../include/shader.cpp $(CFLAGS)

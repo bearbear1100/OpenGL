@@ -29,7 +29,7 @@ int main( void )
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
-	GLuint programID = LoadShaders( "SimpleVertexShader.vert", "SimpleFragmentShader.frag" );
+	GLuint programID = LoadShaders( "TextureVertexShader.vert", "TextureFragmentShader.frag" );
 
     float vertices[] = {
         // positions          // colors           // texture coords
